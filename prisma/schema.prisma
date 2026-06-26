@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Member {
+  id          String        @id @default(uuid())
+  name        String
+  email       String
+  reservation Reservation[]
+}
+
+model Reservation {
+  id             String     @id @default(uuid())
+  member_id      String
+  destination    String
+  villa          String
+  arrival_date   DateTime
+  departure_date DateTime
+  member         Member     @relation(fields: [member_id], references: [id])
+  proposals      Proposal[]
+}
+
+model Proposal {
+  id             String         @id @default(uuid())
+  reservation_id String
+  status         String
+  create_at      DateTime       @default(now())
+  sent_at        DateTime?
+  reservation    Reservation    @relation(fields: [reservation_id], references: [id])
+  items          ProposalItem[]
+  sent_emails    SentEmail[]
+}
+
+model ProposalItem {
+  id           String   @id @default(uuid())
+  proposal_id  String
+  category     String
+  title        String
+  description  String
+  scheduled_at DateTime
+  price        Float
+  proposal     Proposal @relation(fields: [proposal_id], references: [id], onDelete: Cascade)
+}
+
+model SentEmail {
+  id           String   @id @default(uuid())
+  proposal_id  String
+  to_email     String
+  sent_at      DateTime @default(now())
+  body_preview String
+  proposal     Proposal @relation(fields: [proposal_id], references: [id])
+}
