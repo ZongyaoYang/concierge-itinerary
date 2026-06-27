@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client/extension";
-
-const prisma = new PrismaClient();
+import { db as prisma } from "../src/lib/db";
 
 async function main() {
   await prisma.sentEmail.deleteMany();
@@ -21,13 +19,12 @@ async function main() {
       member_id: member.id,
       destination: "Punta Mita, Mexico",
       villa: "Villa Punta Mita",
-      arrival_data: new Date("2026-03-15T00:00:00Z"),
+      arrival_date: new Date("2026-03-15T00:00:00Z"),
       departure_date: new Date("2026-03-22T20:00:00Z"),
     },
   });
 
-  console.log('Seed date created!');
-  
+  console.log("Seed date created!");
 }
 
 main()
