@@ -33,6 +33,7 @@ enum ProposalStatus {
   DRAFT
   SENT
   APPROVED
+  PAID
 }
 
 model Proposal {
