@@ -61,10 +61,8 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     try {
-        // 1. Await the params to be safe in newer Next.js versions
         const { id } = await params;
 
-        // 2. Perform the delete
         await db.proposal.delete({
             where: { id: id },
         });
@@ -72,7 +70,6 @@ export async function DELETE(
         return new NextResponse(null, { status: 204 });
     } catch (error) {
         console.error("API Delete Error:", error);
-        // 3. This return is why you see the 500 error
         return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
     }
 }

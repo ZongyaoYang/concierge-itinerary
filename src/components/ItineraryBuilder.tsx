@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, SubmitEvent } from "react";
+import { useState } from "react";
 import { ProposalItem } from "@/types";
 import ItineraryForm from "./ItineraryForm";
 import DraftPreview from "./DraftPreview";
@@ -20,10 +20,15 @@ export default function ItineraryBuilder({ reservationId, refreshData }: Props) 
         price: 0,
     });
 
-    const handleAddItem = (e: SubmitEvent<HTMLFormElement>) => {
+    const handleAddItem = (e: React.FormEvent) => {
         e.preventDefault();
         setDraftItems([...draftItems, { ...newItem, price: Number(newItem.price) }]);
         setNewItem({ category: "Dining", title: "", description: "", scheduled_at: "", price: 0 });
+    };
+
+    // ADDED: The removal function
+    const removeDraftItem = (indexToRemove: number) => {
+        setDraftItems(draftItems.filter((_, index) => index !== indexToRemove));
     };
 
     const handleCreateProposal = async () => {
@@ -55,6 +60,7 @@ export default function ItineraryBuilder({ reservationId, refreshData }: Props) 
             <DraftPreview
                 draftItems={draftItems}
                 handleCreateProposal={handleCreateProposal}
+                onRemove={removeDraftItem} // PASSED: New prop
             />
         </section>
     );

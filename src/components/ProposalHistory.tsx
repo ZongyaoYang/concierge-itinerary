@@ -29,13 +29,15 @@ export default function ProposalHistory({ proposals, refreshData, onDelete }: Pr
                                 <span className="text-xs text-gray-500">ID: {proposal.id.slice(0, 8)}...</span>
                                 {/* Added Delete button here in the header */}
                                 <div className="flex items-center gap-2">
-                                    <button
-                                        onClick={() => onDelete(proposal.id)}
-                                        className="text-gray-400 hover:text-red-600 transition"
-                                        title="Delete Proposal"
-                                    >
-                                        <Trash2 size={16} />
-                                    </button>
+                                    {proposal.status === 'draft' && (
+                                        <button
+                                            onClick={() => onDelete(proposal.id)}
+                                            className="text-gray-400 hover:text-red-600 transition"
+                                            title="Delete Proposal"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    )}
                                     <span className={`px-2 py-1 text-xs rounded-full font-medium uppercase
                                       ${proposal.status === 'draft' ? 'bg-gray-100 text-gray-600' :
                                             proposal.status === 'sent' ? 'bg-blue-100 text-blue-600' :
