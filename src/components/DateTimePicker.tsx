@@ -16,10 +16,11 @@ import {
 interface DateTimePickerProps {
     value: string;
     onChange: (value: string) => void;
-    defaultMonth?: Date; // 1. Add this prop
+    arrivalDate?: Date;
+    departureDate?: Date;
 }
 
-export function DateTimePicker({ value, onChange, defaultMonth }: DateTimePickerProps) {
+export function DateTimePicker({ value, onChange, arrivalDate, departureDate }: DateTimePickerProps) {
     const initialDate = value ? new Date(value) : undefined;
 
     const [date, setDate] = useState<Date | undefined>(initialDate);
@@ -58,8 +59,16 @@ export function DateTimePicker({ value, onChange, defaultMonth }: DateTimePicker
                     mode="single"
                     selected={date}
                     onSelect={setDate}
-                    defaultMonth={defaultMonth} // 2. Pass it to the calendar
+                    defaultMonth={arrivalDate}
                     initialFocus
+                    modifiers={
+                        arrivalDate && departureDate
+                            ? { booked: { from: arrivalDate, to: departureDate } }
+                            : undefined
+                    }
+                    modifiersClassNames={{
+                        booked: "bg-blue-50 text-blue-900 font-medium"
+                    }}
                 />
                 <div className="p-3 border-t border-border flex items-center justify-between">
                     <span className="text-sm font-medium text-gray-700">Time</span>

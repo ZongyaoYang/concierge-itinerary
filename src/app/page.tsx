@@ -60,6 +60,7 @@ export default function ConciergeDashboard() {
           <ItineraryBuilder
             reservationId={reservation.id}
             arrivalDate={new Date(reservation.arrival_date)}
+            departureDate={new Date(reservation.departure_date)}
             refreshData={fetchData}
           />
           <ProposalHistory proposals={proposals} refreshData={fetchData} onDelete={deleteProposal} />

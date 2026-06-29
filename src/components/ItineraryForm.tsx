@@ -7,9 +7,10 @@ interface Props {
     setNewItem: Dispatch<SetStateAction<ProposalItem>>;
     handleAddItem: (e: SubmitEvent<HTMLFormElement>) => void;
     arrivalDate: Date;
+    departureDate: Date;
 }
 
-export default function ItineraryForm({ newItem, setNewItem, handleAddItem, arrivalDate }: Props) { // 2. Destructured here
+export default function ItineraryForm({ newItem, setNewItem, handleAddItem, arrivalDate, departureDate }: Props) { // 2. Destructured here
     const categories = ["Dining 🍽 ", "Activities 🏄", "Wellness 💆", "Excursions ⛵", "Transport 🚗 ", "Experiences 🌅 "];
     const inputStyles = "w-full p-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent";
 
@@ -34,7 +35,8 @@ export default function ItineraryForm({ newItem, setNewItem, handleAddItem, arri
                     <DateTimePicker
                         value={newItem.scheduled_at}
                         onChange={(val) => setNewItem({ ...newItem, scheduled_at: val })}
-                        defaultMonth={arrivalDate} // 3. Passed it to the picker!
+                        arrivalDate={arrivalDate}
+                        departureDate={departureDate}
                     />
                 </div>
             </div>
