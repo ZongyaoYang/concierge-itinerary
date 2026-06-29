@@ -57,9 +57,14 @@ export default function ItineraryBuilder({ reservationId, arrivalDate, departure
                 setNewItem={setNewItem}
                 handleAddItem={handleAddItem}
                 arrivalDate={arrivalDate}
-                departureDate={departureDate} // 2. Pass it down
+                departureDate={departureDate}
             />
-            {/* ... DraftPreview ... */}
+
+            <DraftPreview
+                draftItems={draftItems}
+                handleCreateProposal={handleCreateProposal}
+                onRemove={removeDraftItem}
+            />
         </section>
     );
 }
