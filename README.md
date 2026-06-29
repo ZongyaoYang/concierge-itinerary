@@ -29,16 +29,19 @@ A full-stack Next.js web application designed for a luxury hospitality concierge
 2. **Set up the Database**
 
 ```bash
-   npx prisma db push
+   npx prisma generate
 ```
 
 3. **Seed the Database**
 
 ```bash
-   npm run seed
-# or run the specific seed script defined in your package.json / prisma config
+   npx prisma db seed
 ```
 
-4.	Access the Application
+4.	**Serve NextJS
+
+```bash
+   npm run dev
+```
 •	Concierge Dashboard: http://localhost:3000
 •	Member Proposal View: Open the dashboard, generate a proposal, and click "Preview Member View" to see the dynamic route (/proposal/[id]).
