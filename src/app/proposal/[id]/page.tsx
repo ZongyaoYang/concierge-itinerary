@@ -7,6 +7,7 @@ import ProposalHeader from "@/components/proposal/ProposalHeader";
 import ProposalContext from "@/components/proposal/ProposalContext";
 import ProposalTimeline from "@/components/proposal/ProposalTimeline";
 import ProposalSummary from "@/components/proposal/ProposalSummary";
+import { ProposalStatus } from "@prisma/client";
 
 interface MemberProposal {
     id: string;
@@ -47,7 +48,7 @@ export default function MemberProposalView() {
         if (id) fetchProposal();
     }, [id]);
 
-    const updateStatus = async (newStatus: "approved" | "paid") => {
+    const updateStatus = async (newStatus: ProposalStatus) => {
         setIsProcessing(true);
         try {
             const res = await fetch(`/api/proposals/${id}`, {
@@ -83,7 +84,7 @@ export default function MemberProposalView() {
     }
 
     // If the status is 'paid', show the luxurious confirmation screen
-    if (proposal.status === "paid") {
+    if (proposal.status === ProposalStatus.PAID) {
         return (
             <div className="min-h-screen bg-stone-900 flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-1000">
                 <h1 className="text-4xl font-serif text-stone-100 mb-4 tracking-wide">Your Journey Awaits</h1>

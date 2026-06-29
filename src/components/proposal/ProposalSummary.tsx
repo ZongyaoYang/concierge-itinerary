@@ -1,8 +1,10 @@
+import { ProposalStatus } from "@prisma/client";
+
 interface Props {
     totalCost: number;
     status: string;
     isProcessing: boolean;
-    updateStatus: (newStatus: "approved" | "paid") => void;
+    updateStatus: (newStatus: ProposalStatus) => void;
 }
 
 export default function ProposalSummary({ totalCost, status, isProcessing, updateStatus }: Props) {
@@ -14,9 +16,9 @@ export default function ProposalSummary({ totalCost, status, isProcessing, updat
             </div>
 
             <div className="flex flex-col gap-4">
-                {status === "sent" && (
+                {status === ProposalStatus.SENT && (
                     <button
-                        onClick={() => updateStatus("approved")}
+                        onClick={() => updateStatus(ProposalStatus.APPROVED)}
                         disabled={isProcessing}
                         className="w-full bg-white text-stone-900 py-4 font-semibold uppercase tracking-widest text-sm hover:bg-stone-200 transition disabled:opacity-50"
                     >
@@ -24,9 +26,9 @@ export default function ProposalSummary({ totalCost, status, isProcessing, updat
                     </button>
                 )}
 
-                {status === "approved" && (
+                {status === ProposalStatus.APPROVED && (
                     <button
-                        onClick={() => updateStatus("paid")}
+                        onClick={() => updateStatus(ProposalStatus.PAID)}
                         disabled={isProcessing}
                         className="w-full bg-emerald-600 text-white py-4 font-semibold uppercase tracking-widest text-sm hover:bg-emerald-500 transition shadow-lg disabled:opacity-50"
                     >
@@ -34,7 +36,7 @@ export default function ProposalSummary({ totalCost, status, isProcessing, updat
                     </button>
                 )}
 
-                {(status === "sent" || status === "draft") && (
+                {(status === ProposalStatus.SENT || status === "draft") && (
                     <p className="text-center text-stone-400 text-xs mt-2 font-light">
                         By approving, you agree to the curated schedule above. Payment will be required to lock in reservations.
                     </p>
