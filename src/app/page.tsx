@@ -25,6 +25,25 @@ export default function ConciergeDashboard() {
     }
   };
 
+  const deleteProposal = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this proposal?")) return;
+
+    try {
+      const res = await fetch(`/api/proposals/${id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        // Re-fetch data from the database to update the UI
+        fetchData();
+      } else {
+        alert("Failed to delete proposal.");
+      }
+    } catch (error) {
+      console.error("Delete request failed:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -36,10 +55,10 @@ export default function ConciergeDashboard() {
     <main className="min-h-screen bg-gray-50 p-8 font-sans">
       <div className="max-w-6xl mx-auto space-y-8">
         <Header reservation={reservation} />
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <ItineraryBuilder reservationId={reservation.id} refreshData={fetchData} />
-          <ProposalHistory proposals={proposals} refreshData={fetchData} />
+          <ProposalHistory proposals={proposals} refreshData={fetchData} onDelete={deleteProposal} />
         </div>
       </div>
     </main>
