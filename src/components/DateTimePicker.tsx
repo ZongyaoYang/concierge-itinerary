@@ -33,9 +33,11 @@ export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
             newDateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10));
 
             const formattedIso = newDateTime.toISOString().slice(0, 16);
-            onChange(formattedIso);
+            if (formattedIso !== value) {
+                onChange(formattedIso);
+            }
         }
-    }, [date, time, onChange]);
+    }, [date, time, value, onChange]);
 
     return (
         <Popover open={isOpen} onOpenChange={setIsOpen}>
