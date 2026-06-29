@@ -83,21 +83,7 @@ export default function MemberProposalView() {
         );
     }
 
-    // If the status is 'paid', show the luxurious confirmation screen
-    if (proposal.status === ProposalStatus.PAID) {
-        return (
-            <div className="min-h-screen bg-stone-900 flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-1000">
-                <h1 className="text-4xl font-serif text-stone-100 mb-4 tracking-wide">Your Journey Awaits</h1>
-                <p className="text-stone-400 max-w-md mx-auto mb-8 font-light">
-                    Thank you, {proposal.reservation.member.name}. Your itinerary at {proposal.reservation.villa} is fully confirmed and locked in. We look forward to welcoming you to {proposal.reservation.destination}.
-                </p>
-                <div className="h-[1px] w-24 bg-stone-700 mb-8 mx-auto"></div>
-                <p className="text-stone-500 uppercase tracking-widest text-xs">Exclusive Resorts Concierge</p>
-            </div>
-        );
-    }
-
-    // Helper variables for child components
+    // 1. Move calculations up so they are available for both views
     const totalCost = proposal.items.reduce((sum, item) => sum + item.price, 0);
     const groupedItems = proposal.items.reduce((acc, item) => {
         const date = new Date(item.scheduled_at).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
@@ -105,6 +91,70 @@ export default function MemberProposalView() {
         acc[date].push(item);
         return acc;
     }, {} as Record<string, ProposalItem[]>);
+
+    // 2. Updated Luxury PAID view
+    if (proposal.status === ProposalStatus.PAID) {
+        return (
+            <div className="min-h-screen bg-stone-900 p-6 md:p-12 text-stone-300 font-sans animate-in fade-in duration-1000 flex flex-col items-center">
+                <div className="max-w-3xl w-full">
+                    {/* Hero Message */}
+                    <div className="text-center mb-16 mt-10">
+                        <h1 className="text-4xl md:text-5xl font-serif text-stone-100 mb-6 tracking-wide">Your Journey Awaits</h1>
+                        <p className="text-stone-400 max-w-xl mx-auto mb-8 font-light leading-relaxed">
+                            Thank you, {proposal.reservation.member.name}. Your proposal is paid and your itinerary at {proposal.reservation.villa} is fully confirmed. Our concierge team is preparing your services now. We look forward to welcoming you to {proposal.reservation.destination}.
+                        </p>
+                        <p className="text-stone-500 uppercase tracking-widest text-xs">Exclusive Resorts Concierge</p>
+                    </div>
+
+                    <div className="h-[1px] w-full bg-stone-800 mb-16"></div>
+
+                    {/* Detailed Itinerary */}
+                    <div className="space-y-12 mb-20">
+                        <h2 className="text-2xl font-serif text-stone-200 text-center mb-12 tracking-wide">Confirmed Itinerary</h2>
+
+                        {Object.entries(groupedItems).map(([date, items]) => (
+                            <div key={date} className="relative">
+                                {/* Elegant Date Header */}
+                                <h3 className="text-lg font-serif text-stone-100 border-b border-stone-800 pb-3 mb-6 tracking-wide">
+                                    {date}
+                                </h3>
+
+                                {/* Item List */}
+                                <div className="space-y-8">
+                                    {items.map((item, idx) => (
+                                        <div key={idx} className="pl-0 md:pl-4 group">
+                                            <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
+                                                <div>
+                                                    <span className="text-[10px] uppercase tracking-widest text-stone-500 block mb-1">
+                                                        {item.category} • {new Date(item.scheduled_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                    </span>
+                                                    <h4 className="text-stone-200 font-medium text-lg">{item.title}</h4>
+                                                </div>
+                                                <span className="text-stone-400 font-serif mt-1 md:mt-0">
+                                                    ${item.price.toFixed(2)}
+                                                </span>
+                                            </div>
+                                            {item.description && (
+                                                <p className="text-stone-400 text-sm font-light leading-relaxed max-w-2xl italic">
+                                                    "{item.description}"
+                                                </p>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Grand Total */}
+                    <div className="border-t border-stone-800 pt-8 pb-12 text-right">
+                        <p className="text-stone-500 uppercase tracking-widest text-xs mb-2">Total Processed</p>
+                        <p className="text-3xl font-serif text-stone-200 tracking-wide">${totalCost.toFixed(2)}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <main className="min-h-screen bg-[#FAFAFA] text-stone-900 font-sans selection:bg-stone-200 pb-24">
