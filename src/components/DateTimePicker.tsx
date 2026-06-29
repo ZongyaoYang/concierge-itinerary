@@ -60,7 +60,6 @@ export function DateTimePicker({ value, onChange, arrivalDate, departureDate }: 
                     selected={date}
                     onSelect={setDate}
                     defaultMonth={arrivalDate}
-                    initialFocus
                     modifiers={
                         arrivalDate && departureDate
                             ? { booked: { from: arrivalDate, to: departureDate } }
