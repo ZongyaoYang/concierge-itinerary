@@ -12,6 +12,7 @@ export default function ItineraryForm({ newItem, setNewItem, handleAddItem }: Pr
     const categories = ["Dining", "Activities", "Wellness", "Excursions", "Transport", "Experiences"];
     const inputStyles = "w-full p-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent";
 
+    const timeZoneIndicator = "Mountain Standard Time"
     return (
         <form onSubmit={handleAddItem} className="space-y-4 mb-6 bg-gray-50 p-4 rounded-md border border-gray-100">
             <div className="grid grid-cols-2 gap-4">
@@ -26,7 +27,9 @@ export default function ItineraryForm({ newItem, setNewItem, handleAddItem }: Pr
                     </select>
                 </div>
                 <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">Date & Time</label>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                        Date & Time ({timeZoneIndicator})
+                    </label>
                     <DateTimePicker
                         value={newItem.scheduled_at}
                         onChange={(val) => setNewItem({ ...newItem, scheduled_at: val })}

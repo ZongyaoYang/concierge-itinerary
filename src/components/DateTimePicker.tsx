@@ -32,9 +32,9 @@ export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
             const newDateTime = new Date(date);
             newDateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10));
 
-            const formattedIso = newDateTime.toISOString().slice(0, 16);
-            if (formattedIso !== value) {
-                onChange(formattedIso);
+            const formattedLocal = format(newDateTime, "yyyy-MM-dd'T'HH:mm");
+            if (formattedLocal !== value) {
+                onChange(formattedLocal);
             }
         }
     }, [date, time, value, onChange]);
