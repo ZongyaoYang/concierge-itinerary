@@ -59,7 +59,6 @@ export default function ProposalHistory({ proposals, refreshData, onDelete }: Pr
                                     <span className="text-xs text-gray-500">ID: {proposal.id.slice(0, 8)}...</span>
                                     <div className="flex items-center gap-2">
                                         {proposal.status === ProposalStatus.DRAFT && (
-                                            /* CHANGED FROM <button> TO <div> HERE */
                                             <div
                                                 onClick={(e) => {
                                                     e.stopPropagation();
