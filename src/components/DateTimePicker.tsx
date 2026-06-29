@@ -19,27 +19,26 @@ interface DateTimePickerProps {
 }
 
 export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
-    // Parse the incoming ISO string to a Date object, or leave undefined
     const initialDate = value ? new Date(value) : undefined;
 
     const [date, setDate] = React.useState<Date | undefined>(initialDate);
     const [time, setTime] = React.useState<string>("12:00");
+    const [isOpen, setIsOpen] = React.useState(false);
 
-    // When either date or time changes, format it back to an ISO string for our form state
+
     React.useEffect(() => {
         if (date) {
             const [hours, minutes] = time.split(":");
             const newDateTime = new Date(date);
             newDateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10));
 
-            // We slice it to match the "YYYY-MM-DDTHH:mm" format expected by our state
             const formattedIso = newDateTime.toISOString().slice(0, 16);
             onChange(formattedIso);
         }
-    }, [date, time]);
+    }, [date, time, onChange]);
 
     return (
-        <Popover>
+        <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
                 <Button
                     variant={"outline"}
@@ -68,6 +67,14 @@ export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
                         className="p-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-black"
                     />
                 </div>
+
+                {/* ADD THIS NEW FOOTER WITH CONFIRM BUTTON */}
+                <div className="p-3 border-t border-border bg-gray-50 flex justify-end rounded-b-md">
+                    <Button size="sm" onClick={() => setIsOpen(false)} className="bg-black text-white hover:bg-gray-800">
+                        Confirm
+                    </Button>
+                </div>
+
             </PopoverContent>
         </Popover>
     );
