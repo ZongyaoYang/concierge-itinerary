@@ -57,7 +57,11 @@ export default function ConciergeDashboard() {
         <Header reservation={reservation} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <ItineraryBuilder reservationId={reservation.id} refreshData={fetchData} />
+          <ItineraryBuilder
+            reservationId={reservation.id}
+            arrivalDate={new Date(reservation.arrival_date)}
+            refreshData={fetchData}
+          />
           <ProposalHistory proposals={proposals} refreshData={fetchData} onDelete={deleteProposal} />
         </div>
       </div>

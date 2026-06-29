@@ -16,15 +16,15 @@ import {
 interface DateTimePickerProps {
     value: string;
     onChange: (value: string) => void;
+    defaultMonth?: Date; // 1. Add this prop
 }
 
-export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
+export function DateTimePicker({ value, onChange, defaultMonth }: DateTimePickerProps) {
     const initialDate = value ? new Date(value) : undefined;
 
     const [date, setDate] = useState<Date | undefined>(initialDate);
     const [time, setTime] = useState<string>("12:00");
     const [isOpen, setIsOpen] = useState(false);
-
 
     useEffect(() => {
         if (date) {
@@ -58,6 +58,7 @@ export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
                     mode="single"
                     selected={date}
                     onSelect={setDate}
+                    defaultMonth={defaultMonth} // 2. Pass it to the calendar
                     initialFocus
                 />
                 <div className="p-3 border-t border-border flex items-center justify-between">
@@ -70,13 +71,11 @@ export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
                     />
                 </div>
 
-                {/* ADD THIS NEW FOOTER WITH CONFIRM BUTTON */}
                 <div className="p-3 border-t border-border bg-gray-50 flex justify-end rounded-b-md">
                     <Button size="sm" onClick={() => setIsOpen(false)} className="bg-black text-white hover:bg-gray-800">
                         Confirm
                     </Button>
                 </div>
-
             </PopoverContent>
         </Popover>
     );

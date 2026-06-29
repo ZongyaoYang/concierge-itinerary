@@ -7,10 +7,11 @@ import DraftPreview from "./DraftPreview";
 
 interface Props {
     reservationId: string;
+    arrivalDate: Date; // 1. Add arrivalDate to the Props interface
     refreshData: () => void;
 }
 
-export default function ItineraryBuilder({ reservationId, refreshData }: Props) {
+export default function ItineraryBuilder({ reservationId, arrivalDate, refreshData }: Props) { // 2. Destructure arrivalDate here
     const [draftItems, setDraftItems] = useState<ProposalItem[]>([]);
     const [newItem, setNewItem] = useState<ProposalItem>({
         category: "Dining",
@@ -26,7 +27,6 @@ export default function ItineraryBuilder({ reservationId, refreshData }: Props) 
         setNewItem({ category: "Dining", title: "", description: "", scheduled_at: "", price: 0 });
     };
 
-    // ADDED: The removal function
     const removeDraftItem = (indexToRemove: number) => {
         setDraftItems(draftItems.filter((_, index) => index !== indexToRemove));
     };
@@ -55,12 +55,13 @@ export default function ItineraryBuilder({ reservationId, refreshData }: Props) 
                 newItem={newItem}
                 setNewItem={setNewItem}
                 handleAddItem={handleAddItem}
+                arrivalDate={arrivalDate} // 3. Pass it down to the form
             />
 
             <DraftPreview
                 draftItems={draftItems}
                 handleCreateProposal={handleCreateProposal}
-                onRemove={removeDraftItem} // PASSED: New prop
+                onRemove={removeDraftItem}
             />
         </section>
     );
