@@ -41,7 +41,7 @@ export async function POST(request: Request) {
             category: item.category,
             title: item.title,
             description: item.description,
-            scheduled_at: item.scheduled_at as unknown as Date,
+            scheduled_at: new Date(item.scheduled_at).toISOString(),
             price: parseFloat(item.price),
           })),
         },
