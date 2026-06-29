@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function ItineraryForm({ newItem, setNewItem, handleAddItem }: Props) {
-    const categories = ["Dining", "Activities", "Wellness", "Excursions", "Transport", "Experiences"];
+    const categories = ["Dining 🍽 ", "Activities 🏄", "Wellness 💆", "Excursions ⛵", "Transport 🚗 ", "Experiences 🌅 "];
     const inputStyles = "w-full p-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent";
 
     const timeZoneIndicator = "Mountain Standard Time"
