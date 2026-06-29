@@ -27,12 +27,9 @@ export default function ItineraryForm({ newItem, setNewItem, handleAddItem }: Pr
                 </div>
                 <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">Date & Time</label>
-                    <input
-                        type="datetime-local"
-                        required
-                        className={inputStyles}
+                    <DateTimePicker
                         value={newItem.scheduled_at}
-                        onChange={(e) => setNewItem({ ...newItem, scheduled_at: e.target.value })}
+                        onChange={(val) => setNewItem({ ...newItem, scheduled_at: val })}
                     />
                 </div>
             </div>
