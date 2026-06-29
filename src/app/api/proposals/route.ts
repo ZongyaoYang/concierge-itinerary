@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { ProposalStatus } from "@prisma/client";
 
 export async function GET() {
   try {
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
     const proposal = await db.proposal.create({
       data: {
         reservation_id,
-        status: "draft",
+        status: ProposalStatus.DRAFT,
         items: {
           create: items.map((item) => ({
             category: item.category,

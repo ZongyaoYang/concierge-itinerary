@@ -29,10 +29,16 @@ model Reservation {
   proposals      Proposal[]
 }
 
+enum ProposalStatus {
+  DRAFT
+  SENT
+  APPROVED
+}
+
 model Proposal {
   id             String         @id @default(uuid())
   reservation_id String
-  status         String
+  status         ProposalStatus @default(DRAFT)
   create_at      DateTime       @default(now())
   sent_at        DateTime?
   reservation    Reservation    @relation(fields: [reservation_id], references: [id])

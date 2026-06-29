@@ -19,8 +19,8 @@ async function main() {
       member_id: member.id,
       destination: "Punta Mita, Mexico",
       villa: "Villa Punta Mita",
-      arrival_date: new Date("2026-03-15T00:00:00Z"),
-      departure_date: new Date("2026-03-22T20:00:00Z"),
+      arrival_date: new Date("2027-03-15T00:00:00Z"),
+      departure_date: new Date("2027-03-22T20:00:00Z"),
     },
   });
 

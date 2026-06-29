@@ -2,6 +2,7 @@
 
 import { Trash2 } from "lucide-react"; // Import the icon
 import { Proposal } from "@/types";
+import { ProposalStatus } from "@prisma/client";
 
 interface Props {
     proposals: Proposal[];
@@ -29,7 +30,7 @@ export default function ProposalHistory({ proposals, refreshData, onDelete }: Pr
                                 <span className="text-xs text-gray-500">ID: {proposal.id.slice(0, 8)}...</span>
                                 {/* Added Delete button here in the header */}
                                 <div className="flex items-center gap-2">
-                                    {proposal.status === 'draft' && (
+                                    {proposal.status === ProposalStatus.DRAFT && (
                                         <button
                                             onClick={() => onDelete(proposal.id)}
                                             className="text-gray-400 hover:text-red-600 transition"
@@ -39,9 +40,9 @@ export default function ProposalHistory({ proposals, refreshData, onDelete }: Pr
                                         </button>
                                     )}
                                     <span className={`px-2 py-1 text-xs rounded-full font-medium uppercase
-                                      ${proposal.status === 'draft' ? 'bg-gray-100 text-gray-600' :
-                                            proposal.status === 'sent' ? 'bg-blue-100 text-blue-600' :
-                                                proposal.status === 'approved' ? 'bg-yellow-100 text-yellow-700' :
+                                      ${proposal.status === ProposalStatus.DRAFT ? 'bg-gray-100 text-gray-600' :
+                                            proposal.status === ProposalStatus.SENT ? 'bg-blue-100 text-blue-600' :
+                                                proposal.status === ProposalStatus.APPROVED ? 'bg-yellow-100 text-yellow-700' :
                                                     'bg-green-100 text-green-700'}`}>
                                         {proposal.status}
                                     </span>
@@ -54,7 +55,7 @@ export default function ProposalHistory({ proposals, refreshData, onDelete }: Pr
                             </p>
 
                             <div className="flex space-x-2 mt-auto">
-                                {proposal.status === 'draft' && (
+                                {proposal.status === ProposalStatus.DRAFT && (
                                     <button
                                         onClick={() => handleSendProposal(proposal.id)}
                                         className="flex-1 bg-blue-600 text-white text-xs py-2 rounded transition hover:bg-blue-700"

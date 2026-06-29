@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { ProposalStatus } from "@prisma/client";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -32,7 +33,7 @@ export async function POST(request: Request, { params }: RouteParams) {
       db.proposal.update({
         where: { id },
         data: {
-          status: "sent",
+          status: ProposalStatus.SENT,
           sent_at: "2026-06-26T22:56:00Z" as unknown as Date, // Matches criteria timeline
         },
       }),
