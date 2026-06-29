@@ -11,7 +11,7 @@ export default function ProposalSummary({ totalCost, status, isProcessing, updat
     return (
         <div className="mt-16 bg-stone-900 text-stone-50 p-8 rounded-sm shadow-xl">
             <div className="flex justify-between items-center mb-8 border-b border-stone-700 pb-6">
-                <span className="font-serif text-2xl tracking-wide">Total Investment</span>
+                <span className="font-serif text-2xl tracking-wide">Total Cost</span>
                 <span className="font-serif text-3xl">${totalCost.toFixed(2)}</span>
             </div>
 
