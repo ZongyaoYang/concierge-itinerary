@@ -63,9 +63,9 @@ A full-stack Next.js web application designed for a luxury hospitality concierge
 
 * Authentication Integration: Implement NextAuth.js to secure the /api/proposals routes and separate the concierge dashboard from the member-facing portal.
 
-* Real Integrations:
-- Integrate Stripe or another payment gateway for the member checkout flow.
-- Integrate an email provider like Resend to automatically email the member their unique proposal link when the Concierge clicks "Send to Member".
+- Real Integrations:
+  - Integrate Stripe or another payment gateway for the member checkout flow.
+  - Integrate an email provider like Resend to automatically email the member their unique proposal link when the Concierge clicks "Send to Member".
 
 * Drag-and-Drop Itinerary Sorting: Allow the concierge to drag and drop draft items to reorder them before finalizing the proposal.
 
